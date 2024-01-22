@@ -1,0 +1,5 @@
+dotnet ef migrations add emriMigration
+dotnet ef database update
+
+Add-Migration
+Update-Database
