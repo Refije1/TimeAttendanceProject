@@ -11,6 +11,6 @@ namespace TimeAttendanceProject.DTOs
         public string Fullname { get; set; }
         public string Role { get; set; }
         public ICollection<LoginRecordDTO> LoginRecords { get; set; }
-        public ICollection<TaskDTO> Tasks { get; set; }
+        public ICollection<TasksDTO> Tasks { get; set; }
     }
 }

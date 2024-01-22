@@ -13,6 +13,6 @@ namespace TimeAttendanceProject.Models
         public string Role { get; set; }
        
         public ICollection<LoginRecord> LoginRecords { get; set; }
-        public ICollection<Task> Tasks { get; set; }
+        public ICollection<Tasks> Tasks { get; set; }
     }
 }
