@@ -5,7 +5,7 @@ using TimeAttendanceProject.Models;
 
 namespace TimeAttendanceProject
 {
- 
+  
         public class AutoMapper : Profile
         {
             public AutoMapper()
