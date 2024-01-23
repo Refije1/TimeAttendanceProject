@@ -36,7 +36,35 @@ namespace TimeAttendanceProject.Controllers
             return Ok();
         }
 
-       
+        [HttpGet("{id}")]
+        public IActionResult GetUser(int id)
+        {
+            var user = _context.Users.Find(id);
 
+            if (user == null)
+            {
+                return NotFound();
+
+            }
+            return Ok(user);
+        }
+
+        [HttpPut("update(id)")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO updateUserDTO)
+        {
+            if (updateUserDTO == null || id != updateUserDTO.UserId) {
+                return BadRequest("Invalid data or mismatched id");
+
+            }
+            var existingUser = await _context.Users.FindAsync(id);
+            if (existingUser == null) {
+                return NotFound();
+            }
+
+            _mapper.Map(updateUserDTO, existingUser);
+            _context.Users.Update(existingUser);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
