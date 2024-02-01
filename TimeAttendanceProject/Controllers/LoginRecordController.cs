@@ -47,6 +47,19 @@ namespace TimeAttendanceProject.Controllers
 
         }
 
+        [HttpGet("user/{userId}")]
+        public IActionResult GetLoginRecordByUserId(int userId)
+        {
+            var loginRecords = _context.LoginRecords.Where(lr => lr.UserId == userId).ToList();
+
+            if (loginRecords == null || loginRecords.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(loginRecords);
+        }
+
         [HttpPut("{update-id}")]
         public async Task<IActionResult> UpdateLoginRecord(int id, [FromBody] LoginRecordDTO updatedLoginRecordDTO)
         {

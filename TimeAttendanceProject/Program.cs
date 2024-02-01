@@ -16,18 +16,33 @@ var constring = builder.Configuration.GetSection("ConnectionString").Value;
 builder.Services.AddDbContext<TimeAttendanceContext>(option =>
     option.UseSqlServer(constring));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllHeaders",
+        builder =>
+        {
+            builder.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowAnyOrigin()
+                   ;
+        });
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseCors("AllowAllHeaders");
+
+app.UseRouting();
+
+app.Use((context, next) =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
+    context.Response.ContentType = "application/json";
+    return next();
+});
 app.UseAuthorization();
 
 app.MapControllers();

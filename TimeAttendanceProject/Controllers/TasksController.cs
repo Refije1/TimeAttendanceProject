@@ -46,7 +46,18 @@ namespace TimeAttendanceProject.Controllers
             return Ok(tasks);
 
         }
+        [HttpGet("user/{userId}")]
+        public IActionResult GetTasksByUserId(int userId)
+        {
+            var tasks = _context.Tasks.Where(t => t.UserId == userId).ToList();
 
+            if (tasks == null || tasks.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(tasks);
+        }
         [HttpPut("{update-id}")]
         public async Task<IActionResult> UpdateTasks(int id, [FromBody] TasksDTO updatedTasksDTO)
         {

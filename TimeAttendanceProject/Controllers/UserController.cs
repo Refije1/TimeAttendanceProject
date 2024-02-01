@@ -28,6 +28,13 @@ namespace TimeAttendanceProject.Controllers
                 return BadRequest("Invalid user data");
             }
 
+            //User newUser = new User
+            //{
+            //    UserName = user.UserName,
+            //    Password = user.Password
+            //};
+
+
             var newUser = _mapper.Map<User>(user);
 
             _context.Users.Add(newUser);
@@ -47,6 +54,13 @@ namespace TimeAttendanceProject.Controllers
 
             }
             return Ok(user);
+        }
+
+        [HttpGet("users")]
+        public IActionResult GetUsers()
+        {
+            var users = _context.Users.ToList();
+            return Ok(users);
         }
 
         [HttpPut("update(id)")]
